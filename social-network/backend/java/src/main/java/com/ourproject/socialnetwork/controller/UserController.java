@@ -1,9 +1,11 @@
 package com.ourproject.socialnetwork.controller;
 
 import com.ourproject.socialnetwork.entity.User;
+import com.ourproject.socialnetwork.mapper.UserMapper;
+import com.ourproject.socialnetwork.model.UserDto;
+import com.ourproject.socialnetwork.service.SequenceGeneratorService;
 import com.ourproject.socialnetwork.service.UserService;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -22,10 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/social-network")
 public class UserController {
     private final UserService userService;
+    private final SequenceGeneratorService userSequenceService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, SequenceGeneratorService userSequenceService) {
         this.userService = userService;
+        this.userSequenceService = userSequenceService;
     }
 
     @GetMapping("/users")
@@ -46,9 +50,11 @@ public class UserController {
     }
 
     @PostMapping("/insert")
-    public ResponseEntity<User> insert(@RequestBody User user) {
+    public ResponseEntity<User> insert(@RequestBody UserDto userDto) {
+        User user = UserMapper.INSTANCE.userDtoToUser(userDto);
+        user.setUserId(userSequenceService.generateSequence(User.SEQUENCE_NAME));
         try {
-            return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
+            return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
         } catch (DuplicateKeyException duplicateKeyException) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
