@@ -1,0 +1,60 @@
+.register {
+  height: 750px;
+}
+.text-img-wrapper {
+  gap: 100px;
+}
+.error-wrapper {
+  & > input {
+    border-bottom: 1px solid var(--border);
+  }
+}
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  padding: 25px 100px;
+  box-sizing: border-box;
+}
+@media screen and (max-width: 1100px) {
+  .left-side {
+    display: none;
+  }
+  .form {
+    width: 725px;
+  }
+  .right-side {
+    border-radius: unset;
+  }
+}
+@media screen and (max-width: 755px) {
+  .form {
+    width: 95%;
+  }
+  .login-form {
+    padding: 25px 50px;
+  }
+}
+@media screen and (max-width: 570px) {
+  .form {
+    height: 800px;
+  }
+  .alternative-login {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+
+    & > div {
+      width: fit-content;
+    }
+  }
+}
+@media screen and (max-width: 450px) {
+  .sign-up {
+    font-size: 0.9rem;
+  }
+  input::placeholder {
+    font-size: 1.5rem;
+  }
+}
