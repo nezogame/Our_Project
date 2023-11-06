@@ -1,8 +1,12 @@
 package com.ourproject.socialnetwork.entity;
 
 
-import java.time.LocalDate;
+import com.ourproject.socialnetwork.config.Role;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +19,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -25,16 +30,15 @@ import org.springframework.stereotype.Component;
 @ToString
 @EqualsAndHashCode
 @Component
-@Document(collection ="Users")
+@Document(collection = "Users")
 public class User implements UserDetails {
     @Transient
     public static final String SEQUENCE_NAME = "users_sequence";
     @Id
-    @Field("user_id")
     private Long userId;
-    @Field("access_token")
-    @Indexed(unique = true)
-    private String accessToken;
+    @Field("user_role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @Field("post_id")
     private Long postId;
     @Field("chat_id")
@@ -56,35 +60,35 @@ public class User implements UserDetails {
     @Field("user_bio")
     private String userBio;
     @Field("date_of_birth")
-    private LocalDate dob;
+    private Date dob;
     @Field("join_date")
-    private LocalDate joinDate;
+    private Date joinDate;
     @Field("password")
     @Indexed(unique = true)
     private String password;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
