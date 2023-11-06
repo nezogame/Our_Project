@@ -1,20 +1,20 @@
 package com.ourproject.socialnetwork.mapper;
 
 import com.ourproject.socialnetwork.entity.User;
-import com.ourproject.socialnetwork.model.UserDto;
+import com.ourproject.socialnetwork.model.AuthenticationDto;
+import com.ourproject.socialnetwork.model.RegisterDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    UserMapper INSTANCE = Mappers.getMapper( UserMapper.class);
-    @Mapping(source = "joinDate", target = "joinDate", dateFormat = "dd.MM.yyyy")
-    @Mapping(source = "dbo", target = "dbo", dateFormat = "dd.MM.yyyy")
-    User userDtoToUser(UserDto entity);
+    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    @Mapping(source = "joinDate", target = "joinDate", dateFormat = "dd.MM.yyyy")
-    @Mapping(source = "dbo", target = "dbo", dateFormat = "dd.MM.yyyy")
-    User userToUserDto(User entity);
+    @Mapping(source = "dob", target = "dob", dateFormat = "dd.MM.yyyy")
+    User registerDtoToUser(RegisterDto entity);
+
+    User authenticationDtoToUser(AuthenticationDto entity);
+
 }
