@@ -6,8 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 public record UserDto(
         Long userId,
-        String accessToken,
-        String userName,
+        String username,
         String password,
         String mail,
         String sex,

@@ -21,7 +21,7 @@ public class UserService {
     }
 
     public User getUserByUserName(String name) {
-        var user = userRepository.findUserByUserName(name);
+        var user = userRepository.findUserByUsername(name);
 
         return user.orElseThrow();
     }
