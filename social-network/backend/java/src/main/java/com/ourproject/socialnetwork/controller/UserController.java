@@ -1,8 +1,6 @@
 package com.ourproject.socialnetwork.controller;
 
 import com.ourproject.socialnetwork.entity.User;
-import com.ourproject.socialnetwork.mapper.UserMapper;
-import com.ourproject.socialnetwork.model.UserDto;
 import com.ourproject.socialnetwork.service.SequenceGeneratorService;
 import com.ourproject.socialnetwork.service.UserService;
 import java.util.List;
@@ -13,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/social-network")
 public class UserController {
     private final UserService userService;
-    private final SequenceGeneratorService userSequenceService;
 
     @Autowired
-    public UserController(UserService userService, SequenceGeneratorService userSequenceService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userSequenceService = userSequenceService;
+    }
+
+    @GetMapping("/demo")
+    public ResponseEntity<String> demo() {
+        return ResponseEntity.ok("Hello from Spring Security");
     }
 
     @GetMapping("/users")
@@ -49,19 +49,8 @@ public class UserController {
         }
     }
 
-    @PostMapping("/insert")
-    public ResponseEntity<User> insert(@RequestBody UserDto userDto) {
-        User user = UserMapper.INSTANCE.userDtoToUser(userDto);
-        user.setUserId(userSequenceService.generateSequence(User.SEQUENCE_NAME));
-        try {
-            return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
-        } catch (DuplicateKeyException duplicateKeyException) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-    }
-
     @PutMapping("/update/{id}")
-    public ResponseEntity<User> update(@PathVariable("id") Long id,@RequestBody User userToUpdate) {
+    public ResponseEntity<User> update(@PathVariable("id") Long id, @RequestBody User userToUpdate) {
         try {
             return new ResponseEntity<>(userService.updateUser(userToUpdate), HttpStatus.OK);
         } catch (DuplicateKeyException duplicateKeyException) {
