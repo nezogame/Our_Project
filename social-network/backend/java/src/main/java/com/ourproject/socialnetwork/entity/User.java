@@ -4,6 +4,7 @@ package com.ourproject.socialnetwork.entity;
 import com.ourproject.socialnetwork.config.Role;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +36,7 @@ public class User implements UserDetails {
     @Transient
     public static final String SEQUENCE_NAME = "users_sequence";
     @Id
-    private Long userId;
+    private BigInteger userId;
     @Field("user_role")
     @Enumerated(EnumType.STRING)
     private Role role;
