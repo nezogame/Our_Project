@@ -15,19 +15,12 @@
     <name>social-network</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-<<<<<<<< HEAD:social-network/backend/java/pom.xml
-         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-        <version.mapstruct-lombok>0.2.0</version.mapstruct-lombok>
-        <org.projectlombok.version>1.18.30</org.projectlombok.version>
-        <java.version>17</java.version>
-========
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <version.mapstruct-lombok>0.2.0</version.mapstruct-lombok>
         <org.projectlombok.version>1.18.30</org.projectlombok.version>
         <java.version>20</java.version>
         <maven.compiler.source>20</maven.compiler.source>
         <maven.compiler.target>20</maven.compiler.target>
->>>>>>>> fileFix:social-network/backend/pom.xml
     </properties>
     <dependencies>
         <dependency>
@@ -120,13 +113,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.6.1</version>
                 <configuration>
-<<<<<<<< HEAD:social-network/backend/java/pom.xml
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-========
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
->>>>>>>> fileFix:social-network/backend/pom.xml
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
