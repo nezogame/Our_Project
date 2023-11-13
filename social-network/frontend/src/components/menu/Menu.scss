@@ -1,0 +1,128 @@
+.menu {
+  width: 20%;
+  height: 100vh;
+  background: #ee7049;
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  //gap: 25px;
+
+  .logo {
+    width: 100%;
+    font-size: 3rem;
+    border-bottom: 1px solid #e4e4e4;
+
+    display: flex;
+    justify-content: center;
+  }
+
+  .profile-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 25px;
+    box-sizing: border-box;
+  }
+  .name {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  .nickname {
+    font-size: 1.1rem;
+  }
+  .description {
+    font-size: 1.2rem;
+  }
+  .user-photo {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
+  .description {
+    max-width: 80%;
+    text-align: center;
+  }
+  .lines {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .lines::before,
+  .lines::after {
+    content: "";
+    display: block;
+    width: 33%;
+    height: 1px;
+    background: #e4e4e4;
+  }
+  .followers-posts-following {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+    border-bottom: 1px solid #e4e4e4;
+    padding: 0 0 15px 0;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  .inner-menu {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0 0 0 25px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border-left: 2px solid #fff;
+  }
+  .menu-item {
+    cursor: pointer;
+  }
+  .profile-ref {
+    width: 100%;
+    border-top: 1px solid #e4e4e4;
+    padding: 25px 25px;
+    box-sizing: border-box;
+  }
+  .profile-ref-outline {
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    border-left: 2px solid #fff;
+    font-size: 1.2rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    & > div {
+      cursor: pointer;
+    }
+  }
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    background: #ee7049;
+
+    .user-photo {
+      width: 35px;
+      height: 35px;
+    }
+  }
+}
