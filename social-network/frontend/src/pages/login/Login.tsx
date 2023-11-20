@@ -4,7 +4,7 @@ import Facebook from "../../assets/svg/Facebook";
 import Github from "../../assets/svg/Github";
 import Google from "../../assets/svg/Google";
 import "./Login.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { changeTheme, selectTheme } from "../../features/theme/themeSlice";
 import Sun from "../../assets/svg/Sun";
@@ -13,6 +13,7 @@ import Eye from "../../assets/svg/Eye";
 import { selectLanguage, changeLanguage } from "../../features/language/languageSlice";
 
 const Login = () => {
+  const navigate = useNavigate();
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   //const eyeRef = useRef<SVGSVGElement>(null);
@@ -28,7 +29,7 @@ const Login = () => {
     const jsonResponse = JSON.stringify({ token: token });
 
     return new Response(jsonResponse, {
-      status: 400, // HTTP status code
+      status: 200, // HTTP status code
       headers: {
         "Content-Type": "application/json",
       },
@@ -48,6 +49,7 @@ const Login = () => {
       return;
     }
     localStorage.setItem("token", data.token);
+    navigate("/profile");
   };
 
   const toggleTheme = () => {

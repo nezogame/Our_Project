@@ -1,5 +1,6 @@
 import Login from "../../pages/login/Login";
 import Main from "../../pages/main/Main";
+import Profile from "../../pages/profile/Profile";
 import Register from "../../pages/register/Register";
 
 export type IRoute = {
@@ -19,5 +20,9 @@ export const routes: IRoute[] = [
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
 ];

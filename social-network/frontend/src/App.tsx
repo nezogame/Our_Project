@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import Routing from "./components/routing/Routing";
+import Layout from "./components/layout/Layout";
 
 const App = () => {
   return (
     <div className="App">
-      <Routing />
+      <Layout />
     </div>
   );
 };
