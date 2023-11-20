@@ -36,7 +36,7 @@ public class User implements UserDetails {
     @Transient
     public static final String SEQUENCE_NAME = "users_sequence";
     @Id
-    private BigInteger userId;
+    private Long userId;
     @Field("user_role")
     @Enumerated(EnumType.STRING)
     private Role role;
