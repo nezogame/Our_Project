@@ -1,0 +1,14 @@
+.newPost {
+  width: 100%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+
+  display: flex;
+  gap: 15px;
+
+  .title {
+    margin: 0 auto 0 10%;
+  }
+}

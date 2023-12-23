@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/social-network/authentication")
 @RequiredArgsConstructor
 public class AuthenticationController {
-
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterDto request) {
-        System.out.println("REGISTER PostMapping /social-network/authentication ");
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
