@@ -44,8 +44,6 @@ public class UserController {
                     HttpStatus.OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (DuplicateKeyException duplicateKeyException) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 
