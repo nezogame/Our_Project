@@ -3,6 +3,7 @@ package com.ourproject.socialnetwork.service;
 import com.ourproject.socialnetwork.entity.User;
 import com.ourproject.socialnetwork.repository.UserRepository;
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,7 @@ public class UserService {
 
     public User getUserByUserName(String name) {
         var user = userRepository.findUserByUsername(name);
-
-        return user.orElseThrow();
+        return user.orElseThrow(() -> new NoSuchElementException("User not found with name " + name));
     }
 
     public User addUser(User user) throws DuplicateKeyException {

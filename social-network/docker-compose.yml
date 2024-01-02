@@ -1,0 +1,17 @@
+version: '3'
+services:
+
+  site-back-end:
+    image: "java-docker"
+    container_name: java-container
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING.PROFILES.ACTIVE=default
+  site-front-end:
+    image: "react-ui-docker:0.0.1"
+    container_name: react-container
+    ports:
+      - "3000:3000"
+    links:
+      - site-back-end
