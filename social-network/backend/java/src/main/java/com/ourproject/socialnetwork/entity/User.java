@@ -1,6 +1,7 @@
 package com.ourproject.socialnetwork.entity;
 
 
+import com.ourproject.socialnetwork.enums.Gender;
 import com.ourproject.socialnetwork.config.Role;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -54,8 +55,8 @@ public class User implements UserDetails {
     @Field("mail")
     @Indexed(unique = true)
     private String mail;
-    @Field("sex")
-    private boolean sex;
+    @Field("gender")
+    private Gender gender;;
     @Field("photo_ptr")
     private String photoPtr;
     @Field("followers")
