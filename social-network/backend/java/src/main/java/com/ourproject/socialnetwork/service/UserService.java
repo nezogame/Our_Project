@@ -1,6 +1,9 @@
 package com.ourproject.socialnetwork.service;
 
+import com.ourproject.socialnetwork.config.Role;
 import com.ourproject.socialnetwork.entity.User;
+import com.ourproject.socialnetwork.mapper.UserMapper;
+import com.ourproject.socialnetwork.model.UserDto;
 import com.ourproject.socialnetwork.repository.UserRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -11,10 +14,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final SequenceGeneratorService userSequenceService;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, SequenceGeneratorService userSequenceService) {
         this.userRepository = userRepository;
+        this.userSequenceService = userSequenceService;
     }
 
     public List<User> findAllUser() {
@@ -26,11 +31,8 @@ public class UserService {
         return user.orElseThrow(() -> new NoSuchElementException("User not found with name " + name));
     }
 
-    public User addUser(User user) throws DuplicateKeyException {
-        return userRepository.insert(user);
-    }
-
-    public User updateUser(User user) throws DuplicateKeyException {
+    public User updateUser(UserDto userUpdate) {
+        var user = UserMapper.INSTANCE.UserDtoToUser(userUpdate);
         return userRepository.save(user);
     }
 
