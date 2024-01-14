@@ -1,9 +1,10 @@
 package com.ourproject.socialnetwork.controller;
 
 import com.ourproject.socialnetwork.entity.User;
-import com.ourproject.socialnetwork.service.SequenceGeneratorService;
+import com.ourproject.socialnetwork.model.UserDto;
 import com.ourproject.socialnetwork.service.UserService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -47,13 +48,9 @@ public class UserController {
         }
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<User> update(@PathVariable("id") Long id, @RequestBody User userToUpdate) {
-        try {
-            return new ResponseEntity<>(userService.updateUser(userToUpdate), HttpStatus.OK);
-        } catch (DuplicateKeyException duplicateKeyException) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+    @PutMapping("/update")
+    public ResponseEntity<User> update(@Valid @RequestBody UserDto userToUpdate) {
+        return new ResponseEntity<>(userService.updateUser(userToUpdate), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{userId}")
