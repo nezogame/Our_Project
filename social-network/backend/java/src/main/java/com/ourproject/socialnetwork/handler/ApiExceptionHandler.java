@@ -70,8 +70,6 @@ public class ApiExceptionHandler {
     @ExceptionHandler(MongoWriteException.class)
     public ResponseEntity<Object> handleMongoWriteException(MongoWriteException ex) {
         String errorMessage = "Error occurred during MongoDB write operation";
-        ;
-
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .message(errorMessage)
                 .statusCode(HttpStatus.CONFLICT)
