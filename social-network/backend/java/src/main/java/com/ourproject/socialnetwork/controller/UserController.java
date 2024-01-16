@@ -28,24 +28,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/demo")
-    public ResponseEntity<String> demo() {
-        return ResponseEntity.ok("Hello from Spring Security");
-    }
-
     @GetMapping("/users")
-    public List<User> getAllUsers() {
-        return userService.findAllUser();
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(userService.findAllUser(), HttpStatus.OK);
     }
 
     @GetMapping("/users/{userName}")
     public ResponseEntity<User> getUserByUserName(@PathVariable("userName") String name) {
-        try {
-            return new ResponseEntity<>(userService.getUserByUserName(name),
-                    HttpStatus.OK);
-        } catch (NullPointerException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(userService.getUserByUserName(name), HttpStatus.OK);
     }
 
     @PutMapping("/update")
