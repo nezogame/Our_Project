@@ -20,25 +20,33 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> findAllUser() {
-        return userRepository.findAll();
+    public List<UserDto> findAllUser() {
+        var users = userRepository.findAll();
+        return users.stream()
+                .map(UserMapper.INSTANCE::UserToUserDto)
+                .toList();
     }
 
-    public User getUserByUserName(String name) throws EntityNotFoundException {
-        var user = userRepository.findUserByUsername(name);
-        return user.orElseThrow(() -> new EntityNotFoundException("User not found with name " + name));
+    public UserDto getUserByUserName(String name) throws EntityNotFoundException {
+        var optionalUser = userRepository.findUserByUsername(name);
+        var user = optionalUser.orElseThrow(() -> new EntityNotFoundException("User not found with name " + name));
+        return UserMapper.INSTANCE.UserToUserDto(user);
     }
 
     @Transactional
-    public User updateUser(UserDto userUpdate) throws EntityNotFoundException {
+    public UserDto updateUser(UserDto userUpdate) throws EntityNotFoundException {
         var user = UserMapper.INSTANCE.UserDtoToUser(userUpdate);
         if (!userRepository.existsById(user.getUserId())) {
             throw new EntityNotFoundException("User not found with id: " + user.getUserId());
         }
-        return userRepository.save(user);
+        user = userRepository.save(user);
+        return UserMapper.INSTANCE.UserToUserDto(user);
     }
 
-    public void deleteUser(Long id) throws EmptyResultDataAccessException {
+    public void deleteUser(Long id) throws EntityNotFoundException {
+        if (!userRepository.existsById(id)) {
+            throw new EntityNotFoundException("User with id: " + id + " doesn't exist");
+        }
         userRepository.deleteById(id);
     }
 }

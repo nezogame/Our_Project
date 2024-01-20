@@ -29,27 +29,23 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         return new ResponseEntity<>(userService.findAllUser(), HttpStatus.OK);
     }
 
     @GetMapping("/users/{userName}")
-    public ResponseEntity<User> getUserByUserName(@PathVariable("userName") String name) {
+    public ResponseEntity<UserDto> getUserByUserName(@PathVariable("userName") String name) {
         return new ResponseEntity<>(userService.getUserByUserName(name), HttpStatus.OK);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<User> update(@Valid @RequestBody UserDto userToUpdate) {
+    public ResponseEntity<UserDto> update(@Valid @RequestBody UserDto userToUpdate) {
         return new ResponseEntity<>(userService.updateUser(userToUpdate), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{userId}")
-    public ResponseEntity<User> delete(@PathVariable Long userId) {
-        try {
+    public ResponseEntity<Void> delete(@PathVariable Long userId) {
             userService.deleteUser(userId);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (DuplicateKeyException duplicateKeyException) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
     }
 }
