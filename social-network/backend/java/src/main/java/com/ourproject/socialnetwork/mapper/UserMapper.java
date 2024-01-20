@@ -16,6 +16,10 @@ public interface UserMapper {
     User registerDtoToUser(RegisterDto entity);
 
     @Mapping(source = "dob", target = "dob", dateFormat = "dd.MM.yyyy")
+    @Mapping(source = "joinDate", target = "joinDate", dateFormat = "dd.MM.yyyy")
     User UserDtoToUser(UserDto entity);
 
+    @Mapping(source = "dob", target = "dob", dateFormat = "dd.MM.yyyy")
+    @Mapping(source = "joinDate", target = "joinDate", dateFormat = "dd.MM.yyyy")
+    UserDto UserToUserDto(User user);
 }
