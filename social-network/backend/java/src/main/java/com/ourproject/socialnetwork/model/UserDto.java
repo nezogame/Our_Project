@@ -1,5 +1,6 @@
 package com.ourproject.socialnetwork.model;
 
+import com.ourproject.socialnetwork.config.Role;
 import com.ourproject.socialnetwork.enums.Gender;
 import com.ourproject.socialnetwork.entity.Chat;
 import com.ourproject.socialnetwork.entity.Post;
@@ -11,6 +12,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record UserDto(
+        @NotNull
         Long userId,
         @NotBlank(message = "Username can't be empty")
         String username,
@@ -20,13 +22,14 @@ public record UserDto(
         @Email
         @NotEmpty(message = "Email can't be empty")
         String mail,
-        Gender sex,
+        Gender gender,
         List<Post> postId,
         List<Chat> chatId,
         String photoPtr,
-        String followers,
-        String following,
+        Integer followers,
+        Integer following,
         String userBio,
         String dob,
-        String joinDate) {
+        String joinDate,
+        Role role) {
 }

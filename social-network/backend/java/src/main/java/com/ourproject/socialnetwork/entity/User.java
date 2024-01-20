@@ -56,7 +56,7 @@ public class User implements UserDetails {
     @Indexed(unique = true)
     private String mail;
     @Field("gender")
-    private Gender gender;;
+    private Gender gender;
     @Field("photo_ptr")
     private String photoPtr;
     @Field("followers")
