@@ -1,13 +1,11 @@
 package com.ourproject.socialnetwork.service;
 
-import com.ourproject.socialnetwork.entity.User;
 import com.ourproject.socialnetwork.mapper.UserMapper;
 import com.ourproject.socialnetwork.model.UserDto;
 import com.ourproject.socialnetwork.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,24 +21,24 @@ public class UserService {
     public List<UserDto> findAllUser() {
         var users = userRepository.findAll();
         return users.stream()
-                .map(UserMapper.INSTANCE::UserToUserDto)
+                .map(UserMapper.INSTANCE::userToUserDto)
                 .toList();
     }
 
     public UserDto getUserByUserName(String name) throws EntityNotFoundException {
         var optionalUser = userRepository.findUserByUsername(name);
         var user = optionalUser.orElseThrow(() -> new EntityNotFoundException("User not found with name " + name));
-        return UserMapper.INSTANCE.UserToUserDto(user);
+        return UserMapper.INSTANCE.userToUserDto(user);
     }
 
     @Transactional
     public UserDto updateUser(UserDto userUpdate) throws EntityNotFoundException {
-        var user = UserMapper.INSTANCE.UserDtoToUser(userUpdate);
+        var user = UserMapper.INSTANCE.userDtoToUser(userUpdate);
         if (!userRepository.existsById(user.getUserId())) {
             throw new EntityNotFoundException("User not found with id: " + user.getUserId());
         }
         user = userRepository.save(user);
-        return UserMapper.INSTANCE.UserToUserDto(user);
+        return UserMapper.INSTANCE.userToUserDto(user);
     }
 
     public void deleteUser(Long id) throws EntityNotFoundException {

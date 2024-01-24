@@ -17,9 +17,13 @@ public interface UserMapper {
 
     @Mapping(source = "dob", target = "dob", dateFormat = "dd.MM.yyyy")
     @Mapping(source = "joinDate", target = "joinDate", dateFormat = "dd.MM.yyyy")
-    User UserDtoToUser(UserDto entity);
+    @Mapping(source = "following", target = "following", defaultValue = "0")
+    @Mapping(source = "followers", target = "followers", defaultValue = "0")
+    User userDtoToUser(UserDto entity);
 
     @Mapping(source = "dob", target = "dob", dateFormat = "dd.MM.yyyy")
     @Mapping(source = "joinDate", target = "joinDate", dateFormat = "dd.MM.yyyy")
-    UserDto UserToUserDto(User user);
+    @Mapping(source = "following", target = "following", defaultValue = "0")
+    @Mapping(source = "followers", target = "followers", defaultValue = "0")
+    UserDto userToUserDto(User user);
 }
