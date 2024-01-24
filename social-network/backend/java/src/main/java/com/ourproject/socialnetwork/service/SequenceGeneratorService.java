@@ -1,6 +1,7 @@
 package com.ourproject.socialnetwork.service;
 
 
+import com.ourproject.socialnetwork.entity.DatabaseSequence;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;

@@ -1,11 +1,11 @@
 package com.ourproject.socialnetwork.entity;
 
+import jakarta.validation.constraints.NotBlank;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -34,4 +34,6 @@ public class Post   {
     @Field("date_publication")
     @NotBlank(message = "Date of the Publication Must Be Present")
     private Date datePublication;
+    @Field("user_id")
+    Long userId;
 }

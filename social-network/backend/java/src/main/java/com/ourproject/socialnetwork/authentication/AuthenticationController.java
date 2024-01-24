@@ -2,6 +2,7 @@ package com.ourproject.socialnetwork.authentication;
 
 import com.ourproject.socialnetwork.model.AuthenticationDto;
 import com.ourproject.socialnetwork.model.RegisterDto;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,12 +17,12 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterDto request) {
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody RegisterDto request) {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/authentication")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationDto request) {
+    public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticationDto request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 }
