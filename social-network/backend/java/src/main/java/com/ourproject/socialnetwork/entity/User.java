@@ -1,13 +1,14 @@
 package com.ourproject.socialnetwork.entity;
 
 
-import com.ourproject.socialnetwork.enums.Gender;
 import com.ourproject.socialnetwork.config.Role;
+import com.ourproject.socialnetwork.enums.Gender;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,12 +44,12 @@ public class User implements UserDetails {
     private Role role;
     @Field("post_id")
     @ReadOnlyProperty
-    @DocumentReference(lookup="{'Posts':?#{#self._id} }")
-    private List<Post>  postId;
+    @DocumentReference(lookup = "{'user_id':?#{#self._id} }")
+    private List<Post> postId;
     @Field("chat_id")
     @ReadOnlyProperty
-    @DocumentReference(lookup="{'Chats':?#{#self._id} }")
-    private List<Chat>  chatId;
+    @DocumentReference(lookup = "{'user_id':?#{#self._id} }")
+    private List<Chat> chatId;
     @Field("user_name")
     @Indexed(unique = true)
     private String username;
@@ -60,8 +61,10 @@ public class User implements UserDetails {
     @Field("photo_ptr")
     private String photoPtr;
     @Field("followers")
+    @Min(value = 0, message = "A user cannot have less than 0 followers")
     private Integer followers;
     @Field("following")
+    @Min(value = 0, message = "A user cannot have less than 0 following")
     private Integer following;
     @Field("user_bio")
     private String userBio;
