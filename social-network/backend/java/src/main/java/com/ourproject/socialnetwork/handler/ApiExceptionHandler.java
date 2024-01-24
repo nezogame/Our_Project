@@ -3,7 +3,6 @@ package com.ourproject.socialnetwork.handler;
 import com.mongodb.MongoWriteException;
 import com.ourproject.socialnetwork.exceptions.ApiRequestException;
 import com.ourproject.socialnetwork.exceptions.ErrorResponse;
-import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.persistence.EntityNotFoundException;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -28,18 +27,6 @@ public class ApiExceptionHandler {
                 .build();
         return ResponseEntity
                 .badRequest()
-                .body(apiException);
-    }
-
-    @ExceptionHandler(ExpiredJwtException.class)
-    public ResponseEntity<Object> handleExpiredJwtException(ExpiredJwtException ex) {
-        ErrorResponse apiException = ErrorResponse.builder()
-                .message(ex.getMessage())
-                .statusCode(HttpStatus.UNAUTHORIZED)
-                .timestamp(ZonedDateTime.now())
-                .build();
-        return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
                 .body(apiException);
     }
 
