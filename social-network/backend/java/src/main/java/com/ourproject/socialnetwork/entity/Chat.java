@@ -1,12 +1,15 @@
 package com.ourproject.socialnetwork.entity;
 
+import jakarta.validation.constraints.NotEmpty;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -20,9 +23,15 @@ public class Chat {
     public static final String SEQUENCE_NAME = "chats_sequence";
     @Id
     private Long chatId;
+    @NotEmpty(message = "Chat must have a name")
+    @Field("name")
+    @Indexed(unique = true)
+    private String name;
     @NotBlank(message = "Chat must be group or personal")
     @Field("group")
     private boolean group;
     @Field("chat_photo")
-    private boolean chatPhoto;
+    private String chatPhoto;
+    @Field("user_id")
+    Set<Long> participantIds;
 }
