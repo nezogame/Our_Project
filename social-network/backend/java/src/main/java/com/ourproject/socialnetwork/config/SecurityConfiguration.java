@@ -49,7 +49,15 @@ public class SecurityConfiguration {
                         .anyRequest()
                         .authenticated()
                 )
-                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2Login(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults()
+                        /*formLogin -> formLogin
+                        .loginPage("http://localhost:3000/login")
+                        .loginProcessingUrl("/social-network/authentication/authentication")
+                        .defaultSuccessUrl("http://localhost:3000/profile")
+                        .failureForwardUrl("http://localhost:3000/login")*/
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
