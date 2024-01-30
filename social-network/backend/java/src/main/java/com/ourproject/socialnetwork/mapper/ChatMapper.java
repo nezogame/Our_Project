@@ -15,4 +15,6 @@ public interface ChatMapper {
     Chat saveChatDtoToChat(SaveChatDto chat);
 
     ChatDto chatToChatDto(Chat chat);
+
+    Chat chatDtoToChat(ChatDto chatDto);
 }
