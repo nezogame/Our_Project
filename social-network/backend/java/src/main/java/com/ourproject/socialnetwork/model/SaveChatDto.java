@@ -2,6 +2,7 @@ package com.ourproject.socialnetwork.model;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.util.Set;
 
 public record SaveChatDto(
@@ -10,7 +11,7 @@ public record SaveChatDto(
         @NotNull(message = "You must specify it group chat or personal")
         Boolean group,
         String chatPhoto,
-        @NotNull(message = "You must pass id of user(s) that have this chat")
+        @Size(min = 2, message = "You must pass id of users that have this chat, minimum 2 user for chat")
         Set<Long> userId
 ) {
 
